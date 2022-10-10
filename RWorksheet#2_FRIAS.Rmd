@@ -1,0 +1,133 @@
+---
+title: "RWorksheet2"
+author: "Frias, Dazzele Mae"
+date: "2022-10-08"
+output: pdf_document
+---
+
+
+
+## R Markdown
+
+```{r vector1.a}
+ a<- c(-5:5)
+ a
+```
+ 
+```{r vector1.b}
+ x <- c(1:7)
+ x
+```
+ 
+```{r vector2.a}
+ b<- seq(1,3,by = 0.2)
+ b
+```
+ 
+```{r vector3}
+ d <- c(34,28,22,36,27,18,52,39,42,29,35,31,27,22,37,
+            34,19,20,57,49,50,37,46,25,17,37,43,53,41,51,
+            35,24,33,41,53,40,18,44,38,41,48,27,39,19,30,
+            61,54,58,26,18)
+ d
+```
+ 
+```{r vector3.a}
+ d[3]
+```
+ 
+```{r vector3.b}
+ d[2]
+ d[4]
+```
+ 
+```{r vector3.c}
+ d[2:50] 
+```
+ 
+```{r vector4}
+ n <- c("first"=3, "second"=0, "third"=9)
+ n
+```
+ 
+```{r vector4.a}
+ n [c("first", "third")]
+```
+ 
+```{r vector5}
+ x <- c(-3:2)
+ x
+```
+ 
+```{r vector5.a}
+ x[2] <- 0
+ x
+```
+ 
+```{r vector6.a}
+ Month = c("Jan","Feb","March","Apr","May","June")
+ Php <- c(52.20,57.25,60.00,65.00,74.25,54.00)
+ Liters <- c(25,30,40,50,10,45)
+
+ Diesel_fuel <- data.frame (Month, Php, Liters)
+ Diesel_fuel
+```
+ 
+```{r vector6.b}
+  weighted.mean(Php)
+```
+  
+```{r vector7.a}
+  data <- c(length(rivers), sum(rivers), mean(rivers),
+            median(rivers), var(rivers), sd(rivers), 
+            min(rivers), max(rivers))
+  data
+```
+  
+```{r vector7.b}
+  #rivers
+    rivers
+```
+
+```{r vector7.c}
+  #data
+    data
+```
+    
+```{r vector8.a}
+    Power_Ranking <- c(1:25)
+    Celebrity_Name = c("Tom Cruise", "Rolling Stones", 
+                       "Oprah Winfrey", "U2", "Tiger Woods",
+                       "Steven Speilberg", "Howard Stern",
+                       "50 Cent", "Cast of the Sopranos",
+                       "Dan Brown", "Bruce Springsteen",
+                       "Donald Trump", "Muhammad Ali", 
+                       "Paul Mcartney", "George Lucas",
+                       "Elton John", "David Letterman",
+                       "Phil Mickelson", "J.K Rowling",
+                       "Bradd Pitt", "Peter Jackson", 
+                       "Dr. Phil McGraw", "Ja Lenon",
+                       "Celine Dion", "Kobe Bryant")
+    Pay <- c(67,90,225,110,90,332,302,41,52,88,55,44,55,40,
+             233,34,40,47,75,25,39,45,32,40,31)
+    Celebrities_pay <- data.frame( Power_Ranking, Celebrity_Name,
+                                  Pay)
+    Celebrities_pay
+```
+
+```{r vector8.b}
+    Celebrities_pay <- data.frame( Power_Ranking, Celebrity_Name,
+                                   Pay)
+     Celebrities_pay[Celebrities_pay == 19] <-15
+     Celebrities_pay[Celebrities_pay ==75] <-90
+     Celebrities_pay
+
+
+```
+
+```{r vector8.c}  
+ Celebrities_pay <- data.frame( Power_Ranking, Celebrity_Name,
+                                  Pay)
+   Celebrities_pay
+```
+ 
