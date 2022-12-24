@@ -1,0 +1,156 @@
+---
+title: "Individual_Project2_FRIAS"
+author: "Frias, Dazzele Mae"
+date: "2022-12-22"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, include=TRUE}
+library(wordcloud)
+library(plotly)
+library(tm)
+library(dplyr)
+library(RColorBrewer)
+library(ggplot2)
+library(twitteR)
+```
+
+```{r, include=TRUE}
+# SETUP CREDENTIALS.
+
+CONSUMER_KEY <- "GhU7fIZQ1cBQUwSAVyQLS51oe"
+CONSUMER_SECRET <-  "ztsb51HiNexgHqYUpWqKHvXwy6ajMNgpMtqOjCcX8SEUPvVOOt"
+ACCESS_TOKEN <- "1599430723357749248-Yyf8Ib5uZGb2WHnkDkPeE6BqRyQpY3"
+ACCESS_SECRET <- "73HRbVUUlSErUA6kr3zgxUZFBV091VuBZxajpGNON9mYs"
+```
+
+```{r, include=TRUE}
+setup_twitter_oauth(consumer_key = CONSUMER_KEY,
+                    consumer_secret = CONSUMER_SECRET,
+                    access_token = ACCESS_TOKEN,
+                    access_secret = ACCESS_SECRET)
+```
+
+```{r, include=TRUE}
+# EXTRACTING TWEETS.
+ orewa <- searchTwitter("Anime", 
+                           n=10000, 
+                           lang="en", 
+                           since="2022-12-15", 
+                           until="2022-12-22", 
+                           retryOnRateLimit = 120)
+ orewa
+```
+
+```{r, include=TRUE}
+# CONVERTING LIST DATA TO DATA FRAME.
+ watashi <- twListToDF(orewa)
+ 
+ watashi
+```
+
+```{r, include=TRUE}
+# SAVE DATA FRAME FILE.
+save(watashi,file = "AnimeTweetsDF.Rdata")
+```
+
+```{r, include=TRUE}
+# LOAD DATA FRAME FILE.
+load(file = "AnimeTweetsDF.Rdata")
+```
+
+```{r, include=TRUE}
+# CHECKING FOR MISSING VALUES IN A DATA FRAME.
+  Kira <- sapply(watashi, function(x) sum(is.na(x)))
+
+  Kira
+```
+
+```{r, include=TRUE}
+#Tweets
+# SUBSETTING USING THE dplyr() PACKAGE.
+  Lelouch <- watashi %>%
+   select(screenName,text,created, isRetweet) %>% filter(isRetweet == FALSE)
+
+  Lelouch
+```
+
+```{r, include=TRUE}
+# GROUPING THE DATA CREATED. 
+  Lelouch %>%  
+   group_by(1) %>%  
+   summarise(max = max(created), min = min(created))
+
+  Han <- Lelouch %>%  mutate(Created_At_Round = created %>% round(units = 'hours') %>% as.POSIXct())
+  Han
+```
+
+```{r, include=TRUE}
+  min_byul <- Lelouch %>% pull(created) %>% min()
+  
+  min_byul
+```
+
+```{r, include=TRUE}
+  max_byul <- Lelouch %>% pull(created) %>% max()
+  
+  max_byul
+```
+
+```{r, include=TRUE}
+# Plot on tweets by time using the library(plotly) and ggplot().
+  Gon <- ggplot(Han, aes(x = Created_At_Round)) +
+  geom_histogram(aes(fill = ..count..)) +
+  theme(legend.position = "right") +
+  xlab("Time") + ylab("Number of tweets") + 
+  scale_fill_gradient(low = "midnightblue", high = "aquamarine4")
+
+Gon %>% ggplotly()
+```
+#==============
+```{r, include=TRUE}
+#Retweets
+
+  sayo_tweets <- watashi %>%
+   select(screenName,text,created, isRetweet) %>% filter(isRetweet == TRUE)
+ 
+ sayo_tweets
+```
+
+```{r, include=TRUE}
+  sayo_tweets %>%  
+   group_by(1) %>%  
+   summarise(max = max(created), min = min(created))
+```
+
+```{r, include=TRUE}
+  saeyun <- sayo_tweets %>%  mutate(Created_At_Round = created %>% round(units = 'hours') %>% as.POSIXct())
+  saeyun
+```
+
+```{r, include=TRUE}
+ min_byul <- sayo_tweets %>% pull(created) %>% min()
+ min_byul
+```
+
+```{r, include=TRUE}
+ max_byul <- sayo_tweets %>% pull(created) %>% max()
+ max_byul
+```
+
+```{r, include=TRUE}
+# Plot on tweets by time using the library(plotly) and ggplot().
+plot_desu <- ggplot(saeyun, aes(x = Created_At_Round)) +
+  geom_histogram(aes(fill = ..count..)) +
+  theme(legend.position = "right") +
+  xlab("Time") + ylab("Number of tweets") + 
+  scale_fill_gradient(low = "pink", high = "cyan")
+
+plot_desu %>% ggplotly()
+```
